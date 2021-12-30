@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 class SecondRobot{
@@ -32,4 +33,15 @@ class SecondRobot{
     await tester.pumpAndSettle();
   }
 
+  Future<void> findBackButton()async{
+    Finder finder = find.byTooltip("Back");
+    if(finder.evaluate().isEmpty) {
+      finder = find.byType(CupertinoNavigationBarBackButton);
+    }
+    await tester.pumpAndSettle();
+    expect(finder, findsOneWidget);
+
+    await tester.tap(finder);
+    await tester.pumpAndSettle();
+  }
 }
